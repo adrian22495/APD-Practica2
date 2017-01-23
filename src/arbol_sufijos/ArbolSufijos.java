@@ -40,24 +40,17 @@ public class ArbolSufijos {
     //Devuelve el indice donde se inicio la cadena
     public int getInicio(){ return inicio; }
 
-    //Añade el string cadena al arbol
-    public boolean añadirSufijos(String cadena){
-        boolean todos_nuevos = true;
-        String s = cadena + "$";
-        for(int i=0 ; i<s.length() ; i++){
-            todos_nuevos = todos_nuevos && añadirSufijo(s.substring(i),i);
-        }
-        return todos_nuevos;
-    }
-
-    //Inmersion de añadirSufijos
-    private boolean añadirSufijo(String s, int indice){
+    //Añade el sufijo s
+    public boolean añadirSufijo(String s, int indice){
         if(s.equals("$")){
             for(int i=0 ; i<hijos.size() ; i++){
+                //Se ha acabado s y ya estaba el nodo en el arbol
                 if(hijos.get(i).getSufijo().equals(s)) {
                     return false;
                 }
             }
+
+            //Se añade el final de cadena
             hijos.add(new ArbolSufijos(s,indice));
             return true;
         }
@@ -68,41 +61,45 @@ public class ArbolSufijos {
                 }
             }
 
+            //Se añade un nuevo hijo si no ha coincidido con los ya existentes
             hijos.add(new ArbolSufijos(s.substring(0,1)));
             return hijos.get(hijos.size()-1).añadirSufijo(s.substring(1),indice);
         }
     }
 
-    public void compactarArbol(){
-        for(int i=0 ; i<hijos.size() ; i++){
-            hijos.get(i).compactar(0, 0);
-            if(hijos.get(i).getSufijo().equals("")){
-                hijos.remove(i);
-            }
-        }
-    }
-
-    private void compactar(int compactos, int recorridos){
+    //Compacta el arbol actual
+    public void compactar(int compactos, int recorridos){
         if(hijos.size()==0){
+            //Quitamos el fin de cadena
             sufijo = sufijo.substring(0,sufijo.length()-1);
+
+            //Usamos indices como etiqueta si tiene longitud suficiente
             if(sufijo.length()>2) {
                 sufijo = (recorridos + inicio - compactos) + ":" + (recorridos + inicio - 1);
             }
         }
-        if(hijos.size()==1){
+        else if(hijos.size()==1){
+            //Compactamos el nodo actual con su hijo
             sufijo = sufijo + hijos.get(0).getSufijo();
             inicio = hijos.get(0).getInicio();
             hijos = hijos.get(0).getHijos();
 
+            //Compactamos con los nuevos valores
             compactar(compactos+1, recorridos+1);
         }
         else{
             for(int i=0; i<hijos.size() ; i++){
+                //Se comprimen los hijos
                 hijos.get(i).compactar(0, recorridos+1);
+
+                //Se eliminan los nodos vacíos
+                if(hijos.get(i).getSufijo().equals("")){
+                    inicio = hijos.get(i).getInicio();
+                    hijos.remove(i);
+                }
             }
         }
     }
-
 
     //Devuelve el arbol en formato string
     public String toString(){
