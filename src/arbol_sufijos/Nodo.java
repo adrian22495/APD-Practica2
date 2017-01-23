@@ -16,12 +16,14 @@ public class Nodo {
         nodos = new ArrayList<Nodo>();
     }
 
-    public void añadirHijo(Nodo n, String arista){
+    public void anadirHijo(Nodo n, String arista){
         aristas.add(arista);
         nodos.add(n);
     }
-    public void añadirHoja(Nodo n, String arista){
+    public void anadirHoja(Nodo n, String arista, int inicio){
         nodos.add(n);
+        hoja = true;
+        indiceInicio = inicio;
     }
     public ArrayList<String> getAristas(){
         return aristas;

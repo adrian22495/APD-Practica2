@@ -12,7 +12,7 @@ public class Arbol {
         raiz = new Nodo();
     }
 
-    public void añadirSufijo(String T){
+    public void anadirSufijo(String T){
         for(int i=0; i<T.length();i++){
             String subT = T.substring(i);
             Nodo aux = raiz;
@@ -37,14 +37,14 @@ public class Arbol {
             //Se añade el subsufijo que no estuviese ya incluido
             for(;j<subT.length(); j++){
                 Nodo n = new Nodo();
-                aux.añadirHijo(n,subT.substring(j,j+1));
+                aux.anadirHijo(n,subT.substring(j,j+1));
                 aux = n;
             }
             //Añadir hoja
             Nodo n = new Nodo();
             n.setHoja(true);
             n.setIndiceInicio(i);
-            aux.añadirHoja(n,"$");
+            aux.anadirHoja(n,"$",i);
         }
 
     }
