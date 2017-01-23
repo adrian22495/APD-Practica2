@@ -76,12 +76,18 @@ public class ArbolSufijos {
     public void compactarArbol(){
         for(int i=0 ; i<hijos.size() ; i++){
             hijos.get(i).compactar(0, 0);
+            if(hijos.get(i).getSufijo().equals("")){
+                hijos.remove(i);
+            }
         }
     }
 
     private void compactar(int compactos, int recorridos){
-        if(hijos.size()==0 && sufijo.length()>2){
-            sufijo = (recorridos + inicio - compactos) + ":" + (recorridos + inicio);
+        if(hijos.size()==0){
+            sufijo = sufijo.substring(0,sufijo.length()-1);
+            if(sufijo.length()>2) {
+                sufijo = (recorridos + inicio - compactos) + ":" + (recorridos + inicio - 1);
+            }
         }
         if(hijos.size()==1){
             sufijo = sufijo + hijos.get(0).getSufijo();
