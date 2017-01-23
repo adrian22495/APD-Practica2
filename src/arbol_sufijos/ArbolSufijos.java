@@ -7,15 +7,15 @@ import java.util.ArrayList;
  */
 public class ArbolSufijos {
     private String sufijo=null;
-    private int posicion=-1;
+    private int inicio=-1;
     private ArrayList<ArbolSufijos> hijos = new ArrayList<ArbolSufijos>();
 
     // Constructores
     public ArbolSufijos(){}
     public ArbolSufijos(String s){ sufijo=s; }
-    public ArbolSufijos(String s, int p){ sufijo=s; posicion=p; }
+    public ArbolSufijos(String s, int p){ sufijo=s; inicio=p; }
     public ArbolSufijos(String s, ArrayList<ArbolSufijos> as){ sufijo=s; hijos=as; }
-    public ArbolSufijos(String s, int p, ArrayList<ArbolSufijos> as){ sufijo=s; posicion=p; hijos=as; }
+    public ArbolSufijos(String s, int p, ArrayList<ArbolSufijos> as){ sufijo=s; inicio=p; hijos=as; }
 
     //Devuelve el sufijo de la raiz del árbol
     public String getSufijo(){
@@ -37,6 +37,10 @@ public class ArbolSufijos {
         return hijos.get(i);
     }
 
+    //Devuelve el indice donde se inicio la cadena
+    public int getInicio(){ return inicio; }
+
+    //Añade el string cadena al arbol
     public boolean añadirSufijos(String cadena){
         boolean todos_nuevos = true;
         String s = cadena + "$";
@@ -46,6 +50,7 @@ public class ArbolSufijos {
         return todos_nuevos;
     }
 
+    //Inmersion de añadirSufijos
     private boolean añadirSufijo(String s, int indice){
         if(s.equals("$")){
             for(int i=0 ; i<hijos.size() ; i++){
@@ -63,13 +68,39 @@ public class ArbolSufijos {
                 }
             }
 
-            hijos.add(new ArbolSufijos(s.substring(0,1),-1));
+            hijos.add(new ArbolSufijos(s.substring(0,1)));
             return hijos.get(hijos.size()-1).añadirSufijo(s.substring(1),indice);
         }
     }
 
+    public void compactarArbol(){
+        for(int i=0 ; i<hijos.size() ; i++){
+            hijos.get(i).compactar(0, 0);
+        }
+    }
+
+    private void compactar(int compactos, int recorridos){
+        if(hijos.size()==0 && sufijo.length()>2){
+            sufijo = (recorridos + inicio - compactos) + ":" + (recorridos + inicio);
+        }
+        if(hijos.size()==1){
+            sufijo = sufijo + hijos.get(0).getSufijo();
+            inicio = hijos.get(0).getInicio();
+            hijos = hijos.get(0).getHijos();
+
+            compactar(compactos+1, recorridos+1);
+        }
+        else{
+            for(int i=0; i<hijos.size() ; i++){
+                hijos.get(i).compactar(0, recorridos+1);
+            }
+        }
+    }
+
+
+    //Devuelve el arbol en formato string
     public String toString(){
-        String salida = sufijo+"("+posicion+")";
+        String salida = sufijo+"["+inicio+"]";
         for( int i=0 ; i<hijos.size() ; i++){
             salida = salida + "(" + hijos.get(i).toString() + ")";
         }
