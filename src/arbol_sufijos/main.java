@@ -6,7 +6,7 @@ package arbol_sufijos;
 public class main {
     public static void main(String[] args){
         ArbolSufijos a = new ArbolSufijos();
-        a.añadirSufijos("aabcaab");
+        a.añadirSufijos("aabc");
         System.out.println(a.toString());
     }
 }

@@ -7,12 +7,14 @@ import java.util.ArrayList;
  */
 public class ArbolSufijos {
     private String sufijo=null;
-    private int posicion;
+    private int posicion=-1;
     private ArrayList<ArbolSufijos> hijos = new ArrayList<ArbolSufijos>();
 
     // Constructores
     public ArbolSufijos(){}
+    public ArbolSufijos(String s){ sufijo=s; }
     public ArbolSufijos(String s, int p){ sufijo=s; posicion=p; }
+    public ArbolSufijos(String s, ArrayList<ArbolSufijos> as){ sufijo=s; hijos=as; }
     public ArbolSufijos(String s, int p, ArrayList<ArbolSufijos> as){ sufijo=s; posicion=p; hijos=as; }
 
     //Devuelve el sufijo de la raiz del árbol
@@ -57,19 +59,19 @@ public class ArbolSufijos {
         else{
             for(int i=0 ; i<hijos.size() ; i++){
                 if(hijos.get(i).getSufijo().equals(s.substring(0,1))) {
-                    return hijos.get(i).añadirSufijo(s.substring(1),++indice);
+                    return hijos.get(i).añadirSufijo(s.substring(1),indice);
                 }
             }
 
-            hijos.add(new ArbolSufijos(s.substring(0,1),indice));
-            return hijos.get(hijos.size()-1).añadirSufijo(s.substring(1),++indice);
+            hijos.add(new ArbolSufijos(s.substring(0,1),-1));
+            return hijos.get(hijos.size()-1).añadirSufijo(s.substring(1),indice);
         }
     }
 
     public String toString(){
-        String salida = sufijo+"\n";
+        String salida = sufijo+"("+posicion+")";
         for( int i=0 ; i<hijos.size() ; i++){
-            salida = salida + "\t(" + hijos.get(i).toString() + "["+posicion+"])\n";
+            salida = salida + "(" + hijos.get(i).toString() + ")";
         }
         return salida;
     }
