@@ -14,10 +14,9 @@ public class RaizArbolSufijos {
 
     //Añade el string cadena al arbol
     public void añadirSufijos(String cadena){
-        original = cadena;
-        String s = cadena + "$";
-        for(int i=0 ; i<s.length()-1 ; i++){
-            añadirSufijo(s.substring(i),i);
+        original = cadena + "$";
+        for(int i=0 ; i<original.length()-1 ; i++){
+            añadirSufijo(original.substring(i),i);
         }
     }
 
