@@ -6,8 +6,13 @@ package arbol_sufijos;
 public class main {
     public static void main(String[] args){
         RaizArbolSufijos a = new RaizArbolSufijos();
-        a.añadirSufijos("ATCGATCGA");
+        a.aÃ±adirSufijos("ATCGATCGA");
+        System.out.println("ARBOL SIN COMPACTAR:\n"+a.toString()+"\n\n");
+
         a.compactarArbol();
-        System.out.println(a.toString());
+        System.out.println("ARBOL COMPACTADO:\n"+a.toString()+"\n\n");
+
+        String repeticion = a.repeticionMasLarga();
+        System.out.println("REPETICION MAS LARGA:\n"+repeticion+"\n\n");
     }
 }
