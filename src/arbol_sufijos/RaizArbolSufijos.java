@@ -50,7 +50,17 @@ public class RaizArbolSufijos {
             hijos.get(i).compactar(0, 0);
         }
     }
-
+    public String recorrerProfundidad(){
+        String mejor="";
+        for(int i=0; i<hijos.size(); i++){
+            String s = repeticionLargaR(hijos.get(i));
+            //
+            if(s!=null && s.length()>mejor.length()){
+                mejor=s;
+            }
+        }
+        return mejor;
+    }
     //Devuelve el arbol en formato string
     public String toString(){
         String salida = "Cadena original: " + original + "\n";

@@ -100,6 +100,26 @@ public class ArbolSufijos {
         }
     }
 
+
+    public static String repeticionLargaR(ArbolSufijos as){
+        //Si solo tiene un hijo ya no habra repeticiones
+        if(as.getNumHijos()<2){
+            return null;
+        }
+        else{
+            String mejor = "";
+            //Se buscara el hijo que tenga una cadena mayor repetida debajo de el
+            for(int i=0; i<as.getNumHijos(); i++){
+                String s = repeticionLargaR(as.getHijo(i));
+                //Si es el mas largo
+                if(s!=null && s.length()>mejor.length()){
+                    mejor=s;
+                }
+            }
+            //Concatena el sufijo propio con el mejor
+            return as.getSufijo()+mejor;
+        }
+    }
     //Devuelve el arbol en formato string
     public String toString(){
         String salida = sufijo+"["+inicio+"]";
