@@ -35,6 +35,12 @@ public class Nodo {
         this.hoja = hoja;
     }
 
+    public void setArrayAristas(ArrayList<String> a){
+        aristas = a;
+    }
+    public void setArrayNodos(ArrayList<Nodo> n){
+        nodos = n;
+    }
     public void setIndiceFin(int indiceFin) {
         this.indiceFin = indiceFin;
     }
