@@ -16,7 +16,7 @@ public class RaizArbolSufijos {
     public void añadirSufijos(String cadena){
         original = cadena;
         String s = cadena + "$";
-        for(int i=0 ; i<s.length() ; i++){
+        for(int i=0 ; i<s.length()-1 ; i++){
             añadirSufijo(s.substring(i),i);
         }
     }
@@ -48,11 +48,6 @@ public class RaizArbolSufijos {
     public void compactarArbol(){
         for(int i=0 ; i<hijos.size() ; i++){
             hijos.get(i).compactar(0, 0);
-
-            //Si tras compactar algun hijo no tiene informacion, se elimina
-            if(hijos.get(i).getSufijo().equals("")){
-                hijos.remove(i);
-            }
         }
     }
 
