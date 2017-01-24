@@ -70,33 +70,32 @@ public class ArbolSufijos {
     //Compacta el arbol actual
     public void compactar(int compactos, int recorridos){
         if(hijos.size()==0){
-            //Quitamos el fin de cadena
-            sufijo = sufijo.substring(0,sufijo.length()-1);
-
             //Usamos indices como etiqueta si tiene longitud suficiente
             if(sufijo.length()>2) {
                 sufijo = (recorridos + inicio - compactos) + ":" + (recorridos + inicio - 1);
             }
         }
         else if(hijos.size()==1){
-            //Compactamos el nodo actual con su hijo
-            sufijo = sufijo + hijos.get(0).getSufijo();
-            inicio = hijos.get(0).getInicio();
-            hijos = hijos.get(0).getHijos();
+            if(hijos.get(0).getSufijo().equals("$")){
+                //Usamos indices como etiqueta si tiene longitud suficiente
+                if(sufijo.length()>2) {
+                    sufijo = (recorridos + hijos.get(0).getInicio() - compactos) + ":" + (recorridos + hijos.get(0).getInicio());
+                }
+            }
+            else {
+                //Compactamos el nodo actual con su hijo
+                sufijo = sufijo + hijos.get(0).getSufijo();
+                inicio = hijos.get(0).getInicio();
+                hijos = hijos.get(0).getHijos();
 
-            //Compactamos con los nuevos valores
-            compactar(compactos+1, recorridos+1);
+                //Compactamos con los nuevos valores
+                compactar(compactos + 1, recorridos + 1);
+            }
         }
         else{
             for(int i=0; i<hijos.size() ; i++){
                 //Se comprimen los hijos
                 hijos.get(i).compactar(0, recorridos+1);
-
-                //Se eliminan los nodos vacíos
-                if(hijos.get(i).getSufijo().equals("")){
-                    inicio = hijos.get(i).getInicio();
-                    hijos.remove(i);
-                }
             }
         }
     }

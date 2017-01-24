@@ -5,13 +5,9 @@ package arbol_sufijos;
  */
 public class main {
     public static void main(String[] args){
-        Arbol a = new Arbol();
-        a.anadirSufijo("aabcaab");
-
-        ArbolSufijos a = new ArbolSufijos();
-        a.añadirSufijos("aaabbbc");
+        RaizArbolSufijos a = new RaizArbolSufijos();
+        a.aÃ±adirSufijos("ATCGATCGA");
         a.compactarArbol();
         System.out.println(a.toString());
-    
     }
 }
