@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by ALEX on 23/01/2017.
  */
 public class RaizArbolSufijos {
-    private static String original;
+    private String original = "";
     private ArrayList<ArbolSufijos> hijos = new ArrayList<ArbolSufijos>();
 
     //Constructor
@@ -14,7 +14,7 @@ public class RaizArbolSufijos {
 
     //Añade el string cadena al arbol
     public void anadirSufijos(String cadena){
-        original = cadena + "$";
+        original += cadena + "$";
         for(int i=0 ; i<original.length()-1 ; i++){
             anadirSufijo(original.substring(i),i);
         }
@@ -102,7 +102,7 @@ public class RaizArbolSufijos {
     }
     //Devuelve el arbol en formato string
     public String toString(){
-        String salida = "Cadena original: " + original + "\n";
+        String salida = "Cadena original: \"" + original + "\"\n";
         for(int i=0 ; i<hijos.size() ; i++){
             salida = salida + "\t("+hijos.get(i).toString() + ")\n";
         }
