@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by ALEX on 23/01/2017.
  */
 public class RaizArbolSufijos {
+    //Cadena original con la que se crea el arbol
     private String original = "";
     private ArrayList<ArbolSufijos> hijos = new ArrayList<ArbolSufijos>();
 
@@ -22,10 +23,11 @@ public class RaizArbolSufijos {
 
     //Inmersion de añadirSufijos
     private void anadirSufijo(String s, int indice){
+        //Si se ha alcanzado el fin de la cadena
         if(s.equals("$")){
             for(int i=0 ; i<hijos.size() ; i++){
                 if(hijos.get(i).getSufijo().equals(s)) {
-                    return;
+                    return; //Si ya existe el camino, no se hace nada
                 }
             }
             hijos.add(new ArbolSufijos(s,indice));
@@ -33,11 +35,13 @@ public class RaizArbolSufijos {
         else{
             for(int i=0 ; i<hijos.size() ; i++){
                 if(hijos.get(i).getSufijo().equals(s.substring(0,1))) {
+                    //Si ya existe, se pasa al siguiente caracter
                     hijos.get(i).añadirSufijo(s.substring(1),indice);
                     return;
                 }
             }
 
+            //Se añade un nuevo hijo con el caracter y se pasa al siguiente caracter
             hijos.add(new ArbolSufijos(s.substring(0,1)));
             hijos.get(hijos.size()-1).añadirSufijo(s.substring(1),indice);
         }
@@ -51,6 +55,7 @@ public class RaizArbolSufijos {
     }
 
     //Devuelve la subcadena mas larga repetida
+    //Pre: el arbol debe estar compactado
     public String repeticionMasLarga(){
         String mejor="";
         for(int i=0; i<hijos.size(); i++){
@@ -62,6 +67,8 @@ public class RaizArbolSufijos {
         return mejor;
     }
 
+    //Busca las repeticiones maximales de la cadena original
+    //Pre: el arbol debe estar compactado
     public ArrayList<String> repeticionesMaximales(){
         ArrayList<String> maximales = new ArrayList<>();
         for(int i=0; i<hijos.size(); i++){
@@ -70,7 +77,9 @@ public class RaizArbolSufijos {
         }
         return maximales;
     }
-    public void maximalesR(ArbolSufijos as, String anterior, ArrayList<Integer> indices, ArrayList<String> maximales){
+
+    //Metodo recursivo para buscar las repeticiones maximales
+    private void maximalesR(ArbolSufijos as, String anterior, ArrayList<Integer> indices, ArrayList<String> maximales){
         //Si es un nodo hoja
         if(as.getInicio()!=-1){
             indices.add(as.getInicio());

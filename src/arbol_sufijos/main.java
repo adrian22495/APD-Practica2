@@ -2,13 +2,9 @@ package arbol_sufijos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by adrian on 22/01/2017.
- */
 public class main {
     public static void main(String[] args){
 
@@ -18,6 +14,9 @@ public class main {
         String cadena="";
         File fichero=null;
 
+        ///////////////////////////////////////////////
+        //   COMPROBACION DE PARAMETROS DE ENTRADA   //
+        ///////////////////////////////////////////////
         if(args.length==2){
             if(args[0].equals("-c")){
                 entrada=0;
@@ -79,8 +78,12 @@ public class main {
         }
 
 
+
+        /////////////////////////////////////////////////////////
+        //   SEGUN LA ENTRADA SE PROCEDE DE UNA FORMA U OTRA   //
+        /////////////////////////////////////////////////////////
         switch(entrada){
-            case 0:
+            case 0: //Cadena en la entrada
                 System.out.println("Creando árbol de sufijos...");
                 RaizArbolSufijos a0 = new RaizArbolSufijos();
 
@@ -107,7 +110,7 @@ public class main {
                     System.out.println("\t\"" + maximales0.get(i) + "\"");
                 }
             break;
-            case 1:
+            case 1: //Fichero en la entrada
                 Scanner lector1 = null;
                 try{
                     lector1 = new Scanner(fichero);
@@ -149,7 +152,7 @@ public class main {
                     System.out.println("\t\"" + maximales1.get(i) + "\"");
                 }
             break;
-            case 2:
+            case 2: // Fichero FASTA en la entrada
                 Scanner lector2 = null;
                 try{
                     lector2 = new Scanner(fichero).useDelimiter("\n");
