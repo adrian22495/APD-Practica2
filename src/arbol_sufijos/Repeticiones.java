@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class main {
+public class Repeticiones {
     public static void main(String[] args){
 
         int entrada=0; //0:cadena; 1:fichero; 2:fichero FASTA
@@ -77,8 +77,6 @@ public class main {
             System.exit(-1);
         }
 
-
-
         /////////////////////////////////////////////////////////
         //   SEGUN LA ENTRADA SE PROCEDE DE UNA FORMA U OTRA   //
         /////////////////////////////////////////////////////////
@@ -101,7 +99,7 @@ public class main {
 
                 System.out.println("Buscando la repeticion mas larga...");
                 String repeticion0 = a0.repeticionMasLarga();
-                System.out.println("REPETICION MAS LARGA:\n\t\"" + repeticion0 + "\n\"");
+                System.out.println("REPETICION MAS LARGA:\n\t\"" + repeticion0 + "\"\n");
 
                 System.out.println("Buscando las repeticiones maximales...");
                 System.out.println("MAXIMALES:");
